@@ -20,19 +20,19 @@ parser = ArgumentParser(description='Testing options')
 
 parser.add_argument(
     '--model_name', required=True,
-    help='The path to the parent folder of the trained model')
+    help='The name of the trained model')
 
 parser.add_argument(
     '--threshold', required=False, default=0.5,
-    help='The path to the trained model')
+    help='The threshold to binarise the probability mask')
 
 parser.add_argument(
     '--save_results', required=False, default=False,
-    help='The path to the trained model')
+    help='Saves the output binary masks if True')
 
 parser.add_argument(
     '--verbose', required=False, default=True,
-    help='The path to the trained model')
+    help='Depicts the progress bar if True')
 
 def test(model_name, threshold=0.5, save=True, verbose=True):
     classifications = np.array([0, 0, 0, 0])
