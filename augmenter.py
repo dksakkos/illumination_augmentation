@@ -12,7 +12,26 @@ import operator
 from scipy.ndimage.morphology import distance_transform_edt as dt
 import skimage.draw as draw
 import numpy as np
+import cv2
 
+def add_sharpness(image):
+    kernel = np.array([[0, -1, 0], [-1, 5,-1], [0, -1, 0]])
+    return cv2.filter2D(image, -1, kernel)
+
+def blur(image):
+    return cv2.blur(image,(5,5))
+
+def sharp_blur(image):
+    return blur(image) if np.random.random()>0.5 else add_sharpness(image)
+
+def saturation(image):
+    hsvImg = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    hsvImg[..., 1] = hsvImg[..., 1] * np.random.random()*2
+    return cv2.cvtColor(hsvImg, cv2.COLOR_HSV2BGR)
+
+def contrast(img):
+    factor = max(0.2, np.random.random()*2.)
+    return np.clip(128 + factor * img - factor * 128, 0, 255).astype(np.uint8)
 
 def cropND(img, bounding):
     start = tuple(map(lambda a, da: a // 2 - da // 2, img.shape, bounding))
@@ -48,11 +67,19 @@ def get_mask(img, minmax=(120, 160)):
     mask = np.zeros_like(img[..., 0])
     x, y = mask.shape
     min_dim = min(x, y)
-    random_r = np.random.randint(int(min_dim / 5), int(min_dim / 2))
-    random_r = int(random_r / 2)
-    random_x = np.random.randint(random_r, x - random_r)
-    random_y = np.random.randint(random_r, y - random_r)
-    rr, cc = draw.circle(random_x, random_y, random_r)
+    if np.random.random() > 0.5: # Circle-shaped masks
+        random_r = np.random.randint(int(min_dim / 5), int(min_dim / 2))
+        random_r = int(random_r / 2)
+        random_x = np.random.randint(random_r, x - random_r)
+        random_y = np.random.randint(random_r, y - random_r)
+        rr, cc = draw.circle(random_x, random_y, random_r)
+    else: # Ellipse-shaped masks
+        random_r = np.random.randint(int(min_dim / 5), int(min_dim / 1.5))
+        random_r = int(random_r / 2)
+        random_x = np.random.randint(random_r, x - random_r)
+        random_y = np.random.randint(random_r, y - random_r)
+        rr, cc = draw.ellipse(random_x, random_y, random_r, random_r*np.random.uniform(low=0.3, high=0.8, size=1)[0],
+                                shape=(x,y),rotation=np.random.random()*np.pi*2-np.pi)
     mask[rr, cc] = 1
     mask = dt(mask)
     rv = np.random.randint(minmax[0], minmax[1])
@@ -62,6 +89,14 @@ def get_mask(img, minmax=(120, 160)):
 
 def illumination_augmenter(img, global_mask=(40, 80), local_mask=(120, 160)):
     img = np.squeeze(img)
+
+    if np.random.random()<0.33: img=saturation(img)
+    elif np.random.random()<0.66: img=sharp_blur(img)
+    else:
+        img=contrast(img)
+        local_mask=(80,120)
+        global_mask=(30,60)
+
     # Only local changes
     if any(x > 0 for x in local_mask):
         mask, ch = get_mask(img, local_mask)
@@ -99,7 +134,6 @@ def illumination_augmenter(img, global_mask=(40, 80), local_mask=(120, 160)):
     img[img > 255] = 255
     img[img < 0] = 0
     return img[np.newaxis, ...]
-
 
 class Augmenter:
     def __init__(self, local_mask=(120, 160), global_mask=(40, 80),

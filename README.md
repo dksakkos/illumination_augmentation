@@ -20,11 +20,10 @@ For example, to train a model with a VGG16 backbone and the proposed augmentatio
 
 ```
 python train.py \
-    --model_name vgg16_augmented \
+    --name vgg16_augmented \
     --backbone vgg16 \
     --augment_local 120 160 \
-    --augment_global 40 80 \
-    --augment_regular False
+    --augment_global 40 80
 ```
 
 The training arguments will be saved at your working folder, to ease the tracking of your experiments. To turn off the proposed method and use the regular augmentor instead, run the following:
@@ -33,7 +32,7 @@ The training arguments will be saved at your working folder, to ease the trackin
 python train.py \
     --augment_local 0 0 \
     --augment_global 0 0 \
-    --augment_regular True
+    --augment_regular
 ```
 
 
@@ -43,10 +42,9 @@ Optionally, you can save the predictions, set a different binarisation threshold
 
 ```
 python test.py \
-    --model_name vgg16_augmented \
+    --name vgg16_augmented \
     --threshold 0.7 \
-    --save_results False \
-    --verbose True
+    --save_results
 ```
 
 # Notes

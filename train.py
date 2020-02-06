@@ -43,7 +43,7 @@ parser.add_argument(
     help='Minimum/maximum value of global changes mask')
 
 parser.add_argument(
-    '--augment_regular', required=False, default=False, type=bool,
+    '--augment_regular', action='store_true', default=False,
     help='Use the regular augmentor (image mirroring and noise)')
 
 parser.add_argument(
@@ -67,7 +67,7 @@ parser.add_argument(
     help='Optimiser patience: number of epochs of no improvement until we stop training')
 
 parser.add_argument(
-    '--model_name', required=False, default='mymodel',
+    '--name', required=False, default='mymodel',
     help='Name of the model')
 
 parser.add_argument(
@@ -113,7 +113,7 @@ def data_generator(file_list, augmenter = None, sort_data=False):
 
 
 def get_callback_list():
-    chk = keras.callbacks.ModelCheckpoint(os.path.join(workingpath, args.model_name, args.model_name +'.h5'),
+    chk = keras.callbacks.ModelCheckpoint(os.path.join(workingpath, args.name, args.name +'.h5'),
                                           monitor='val_score', verbose=1, save_best_only=True,
                                           save_weights_only=False, mode='max', period=1)
 
@@ -123,14 +123,14 @@ def get_callback_list():
     early = keras.callbacks.EarlyStopping(monitor='val_score', min_delta=1e-4, patience=args.stop_patience,
                                           verbose=0, mode='max')
 
-    csv_logger = CSVLogger(os.path.join(workingpath, args.model_name, args.model_name+'.csv'), append=True,
+    csv_logger = CSVLogger(os.path.join(workingpath, args.name, args.name+'.csv'), append=True,
                            separator=',')
     return [chk, redu, early, csv_logger]
 
 
 args = parser.parse_args()
-create_folder(args.model_name)
-with open(os.path.join(workingpath, args.model_name, 'args.txt'), 'w') as f:
+create_folder(args.name)
+with open(os.path.join(workingpath, args.name, 'args.txt'), 'w') as f:
     json.dump(args.__dict__, f, indent=2)
 
 model = Unet(args.backbone, encoder_freeze=True, encoder_weights='imagenet')
