@@ -47,6 +47,8 @@ python test.py \
     --save_results
 ```
 
+You can also refine the results with the proposed post-processing method, using the argument ```--refine```.
+
 # Notes
 During training, the script will monitor, for each epoch, the F1 score on the validation set and overwrite the saved model in case of improvement.
 Training stops after a number of consecutive epochs of no improvement, which is pre-set as 15.
