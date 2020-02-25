@@ -1,6 +1,6 @@
 # Illumination-Based Data Augmentation for Robust Background Subtraction
 
-This repository contains the Keras code used in the paper [Illumination-Based Data Augmentation for Robust Background Subtraction](http://nrl.northumbria.ac.uk/40944/1/Sakkos%20et%20al%20-%20Illumination-Based%20Data%20Augmentation%20for%20Robust%20Background%20Subtraction%20AAM.pdf),
+This repository contains the Keras code used in the paper [Illumination-Based Data Augmentation for Robust Background Subtraction](https://ieeexplore.ieee.org/document/8982527),
 which received the **Best paper award** at [**SKIMA 2019**](http://skimanetwork.info/) which was held from 26 to 28 August 2019 in Island of Ulkulhas, Maldives. 
 
 
@@ -58,12 +58,12 @@ Training stops after a number of consecutive epochs of no improvement, which is 
 If you use this code in your research, please use the following BibTeX entry.
 
 ````
-@inproceedings{sakkos2019illumination,
-  title={Illumination-Based Data Augmentation for Robust Background Subtraction},
-  author={Sakkos, Dimitrios and Shum, Hubert and Ho, Edmond},
-  booktitle={SKIMA},
-  year={2019}
-}
+@article{sakkos_shum_ho_2019,
+title={Illumination-Based Data Augmentation for Robust Background Subtraction},
+DOI={10.1109/skima47702.2019.8982527},
+journal={2019 13th International Conference on Software, Knowledge, Information Management and Applications (SKIMA)}, 
+author={Sakkos, Dimitrios and Shum, Hubert P. H. and Ho, Edmond S. L.},
+year={2019}
 ```` 
 
 ## Contact
