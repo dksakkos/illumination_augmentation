@@ -64,6 +64,7 @@ DOI={10.1109/skima47702.2019.8982527},
 journal={2019 13th International Conference on Software, Knowledge, Information Management and Applications (SKIMA)}, 
 author={Sakkos, Dimitrios and Shum, Hubert P. H. and Ho, Edmond S. L.},
 year={2019}
+}
 ```` 
 
 ## Contact
