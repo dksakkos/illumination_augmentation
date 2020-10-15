@@ -3,6 +3,7 @@
 This repository contains the Keras code used in the paper [Illumination-Based Data Augmentation for Robust Background Subtraction](https://ieeexplore.ieee.org/document/8982527),
 which received the **Best paper award** at [**SKIMA 2019**](http://skimanetwork.info/) which was held from 26 to 28 August 2019 in Island of Ulkulhas, Maldives. 
 
+An extension of this work was published at the **Journal of Enterprise Information Management** as [Image editing-based data augmentation for illumination-insensitive background subtraction](https://www.emerald.com/insight/content/doi/10.1108/JEIM-02-2020-0042/full/html).
 
 # SABS dataset
 The dataset used in this study was developed by [Stuttgart University](https://www.vis.uni-stuttgart.de/forschung/visual-analytics/visuelle-analyse-videostroeme/stuttgart_artificial_background_subtraction_dataset/).
@@ -55,7 +56,7 @@ Training stops after a number of consecutive epochs of no improvement, which is 
 
 ## Citation
 
-If you use this code in your research, please use the following BibTeX entry.
+If you use this code in your research, please use the following BibTeX entries.
 
 ````
 @article{sakkos_shum_ho_2019,
@@ -64,6 +65,14 @@ DOI={10.1109/skima47702.2019.8982527},
 journal={2019 13th International Conference on Software, Knowledge, Information Management and Applications (SKIMA)}, 
 author={Sakkos, Dimitrios and Shum, Hubert P. H. and Ho, Edmond S. L.},
 year={2019}
+}
+
+@article{sakkos_ho_shum_elvin_2020,
+title={Image editing-based data augmentation for illumination-insensitive background subtraction},
+DOI={10.1108/jeim-02-2020-0042},
+journal={Journal of Enterprise Information Management},
+author={Sakkos, Dimitrios and Ho, Edmond S. L. and Shum, Hubert P. H. and Elvin, Garry},
+year={2020}
 }
 ```` 
 
